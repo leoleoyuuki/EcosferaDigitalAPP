@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_usuario_list"
+        android:title="Lista de Usuários"
+        android:icon="@drawable/ic_launcher_foreground" />
+    <item
+        android:id="@+id/nav_usuario_insert"
+        android:title="Inserir Usuário"
+        android:icon="@drawable/ic_launcher_background" />
+    <item
+        android:id="@+id/nav_usuario_edit"
+        android:title="Editar Usuário"
+        android:icon="@drawable/ic_launcher_foreground" />
+</menu>

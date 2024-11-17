@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "307517233103",
+    "project_id": "ecosferadigital",
+    "storage_bucket": "ecosferadigital.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307517233103:android:9df11ba50cd17d7e5b64ba",
+        "android_client_info": {
+          "package_name": "com.example.ecosferadigital"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmfcArFh0-7IgiPYFaJqAClt9nLv1VlS4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
