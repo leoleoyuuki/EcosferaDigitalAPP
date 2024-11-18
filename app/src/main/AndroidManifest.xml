@@ -11,16 +11,32 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.EcosferaDigital"
         tools:targetApi="31">
-        <activity android:name=".ui.login.LoginActivity"
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:theme="@style/Theme.MyApplication"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+
+        <activity android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MyApplication">
+
+        </activity>
+        <activity android:name=".ui.login.RegisterActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MyApplication">
+            <intent-filter>
+                <category android:name="android.intent.category.ALTERNATIVE" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

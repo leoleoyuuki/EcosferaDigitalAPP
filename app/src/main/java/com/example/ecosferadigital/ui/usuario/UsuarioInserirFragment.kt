@@ -1,6 +1,7 @@
 package com.example.ecosferadigital.ui.usuario
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,9 +59,11 @@ class UsuarioInserirFragment : Fragment() {
                 RetrofitInstance.api.createUsuario(usuario)
             } catch (e: IOException) {
                 Toast.makeText(requireContext(), "Erro de rede: ${e.message}", Toast.LENGTH_SHORT).show()
+                Log.i("ERROR","${e.message}")
                 return@launch
             } catch (e: HttpException) {
                 Toast.makeText(requireContext(), "Erro HTTP: ${e.message}", Toast.LENGTH_SHORT).show()
+                Log.i("ERROR", "${e.message}")
                 return@launch
             }
 

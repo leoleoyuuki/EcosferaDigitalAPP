@@ -7,18 +7,18 @@ import retrofit2.http.*
 
 interface ApiService {
 
-    @GET("usuarios")
+    @GET("Usuario")
     suspend fun getUsuarios(): Response<List<Usuario>>
 
-    @GET("usuarios/{id}")
+    @GET("Usuario/{id}")
     suspend fun getUsuarioById(@Path("id") id: Int): Response<Usuario>
 
-    @POST("usuarios")
+    @POST("Usuario")
     suspend fun createUsuario(@Body usuario: UsuarioPost): Response<Usuario>
 
-    @PUT("usuarios/{id}")
+    @PUT("Usuario/{id}")
     suspend fun updateUsuario(@Path("id") id: Int, @Body usuario: UsuarioPost): Response<Void>
 
-    @DELETE("usuarios/{id}")
+    @DELETE("Usuario/{id}")
     suspend fun deleteUsuario(@Path("id") id: Int): Response<Void>
 }

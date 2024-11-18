@@ -6,27 +6,22 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ecosferadigital.MainActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.example.ecosferadigital.databinding.ActivityLoginBinding
+import com.example.ecosferadigital.databinding.ActivityRegisterBinding
 
-class LoginActivity : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLoginBinding
+    private lateinit var binding: ActivityRegisterBinding
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
 
-        // Verificar se o usuário já está logado
-        if (auth.currentUser != null) {
-            navigateToMain()
-        }
-
-        binding.btnLogin.setOnClickListener {
+        binding.btnRegister.setOnClickListener {
             val email = binding.etEmail.text.toString().trim()
             val senha = binding.etSenha.text.toString().trim()
 
@@ -35,25 +30,25 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            loginUser(email, senha)
+            registerUser(email, senha)
         }
 
-        binding.tvRegistrar.setOnClickListener {
-            // Navegar para a tela de registro
-            startActivity(Intent(this, RegisterActivity::class.java))
+        binding.tvLogin.setOnClickListener {
+            // Navegar para a tela de login
+            startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
-
     }
 
-    private fun loginUser(email: String, senha: String) {
-        auth.signInWithEmailAndPassword(email, senha)
+    private fun registerUser(email: String, senha: String) {
+        auth.createUserWithEmailAndPassword(email, senha)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    Toast.makeText(this, "Registro bem-sucedido!", Toast.LENGTH_SHORT).show()
                     navigateToMain()
                 } else {
                     Toast.makeText(
-                        this, "Falha no login: ${task.exception?.message}",
+                        this, "Falha no registro: ${task.exception?.message}",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
