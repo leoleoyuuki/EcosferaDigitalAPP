@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import com.example.ecosferadigital.databinding.FragmentUsuarioEditarBinding
+import com.example.ecosferadigital.models.Usuario
 import com.example.ecosferadigital.models.UsuarioPost
 import com.example.ecosferadigital.network.RetrofitInstance
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
@@ -22,9 +24,10 @@ class UsuarioEditarFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Recupera o ID do usuário do Bundle
         arguments?.let {
             usuarioId = it.getInt("usuarioId")
-            // Carregar dados do usuário via API se necessário
         }
     }
 
@@ -37,19 +40,23 @@ class UsuarioEditarFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        usuarioId?.let { id ->
-            carregarUsuario(id)
+        super.onViewCreated(view, savedInstanceState)
+
+        if (usuarioId != null) {
+            carregarDadosDoUsuario(usuarioId!!)
+        } else {
+            Toast.makeText(requireContext(), "Erro ao carregar ID do usuário", Toast.LENGTH_SHORT).show()
         }
 
-        binding.btnAtualizar.setOnClickListener {
-            atualizarUsuario()
+        binding.btnSalvar.setOnClickListener {
+            salvarAlteracoes()
         }
     }
 
-    private fun carregarUsuario(id: Int) {
-        lifecycleScope.launch {
+    private fun carregarDadosDoUsuario(id: Int) {
+        CoroutineScope(Dispatchers.Main).launch {
             val response = try {
-                RetrofitInstance.api.getUsuarioById(id)
+                RetrofitInstance.api.getUsuarioById(id) // Ajuste conforme sua API
             } catch (e: IOException) {
                 Toast.makeText(requireContext(), "Erro de rede: ${e.message}", Toast.LENGTH_SHORT).show()
                 return@launch
@@ -70,28 +77,24 @@ class UsuarioEditarFragment : Fragment() {
         }
     }
 
-    private fun atualizarUsuario() {
-        val nome = binding.etNome.text.toString().trim()
-        val endereco = binding.etEndereco.text.toString().trim()
-        val email = binding.etEmail.text.toString().trim()
-        val telefone = binding.etTelefone.text.toString().trim()
 
-        if (nome.isEmpty() || email.isEmpty() || telefone.isEmpty()) {
-            Toast.makeText(requireContext(), "Preencha os campos obrigatórios", Toast.LENGTH_SHORT).show()
-            return
-        }
+    private fun salvarAlteracoes() {
+        val nome = binding.etNome.text.toString()
+        val endereco = binding.etEndereco.text.toString()
+        val email = binding.etEmail.text.toString()
+        val telefone = binding.etTelefone.text.toString()
 
-        val usuarioAtualizado = UsuarioPost(
-            nome = nome,
-            endereco = endereco,
-            email = email,
-            telefone = telefone
-        )
+        if (usuarioId != null) {
+            val usuarioPost = UsuarioPost(
+                nome = nome,
+                endereco = endereco,
+                email = email,
+                telefone = telefone
+            )
 
-        usuarioId?.let { id ->
-            lifecycleScope.launch {
+            CoroutineScope(Dispatchers.Main).launch {
                 val response = try {
-                    RetrofitInstance.api.updateUsuario(id, usuarioAtualizado)
+                    RetrofitInstance.api.updateUsuario(usuarioId!!, usuarioPost)
                 } catch (e: IOException) {
                     Toast.makeText(requireContext(), "Erro de rede: ${e.message}", Toast.LENGTH_SHORT).show()
                     return@launch
@@ -102,10 +105,13 @@ class UsuarioEditarFragment : Fragment() {
 
                 if (response.isSuccessful) {
                     Toast.makeText(requireContext(), "Usuário atualizado com sucesso!", Toast.LENGTH_SHORT).show()
+                    requireActivity().supportFragmentManager.popBackStack()
                 } else {
                     Toast.makeText(requireContext(), "Falha ao atualizar usuário", Toast.LENGTH_SHORT).show()
                 }
             }
+        } else {
+            Toast.makeText(requireContext(), "ID do usuário inválido", Toast.LENGTH_SHORT).show()
         }
     }
 

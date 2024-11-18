@@ -1,5 +1,4 @@
 package com.example.ecosferadigital.ui.usuario
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +6,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.ecosferadigital.R
 import com.example.ecosferadigital.databinding.FragmentUsuarioListarBinding
 import com.example.ecosferadigital.models.Usuario
 import com.example.ecosferadigital.network.RetrofitInstance
@@ -61,13 +62,20 @@ class UsuarioListarFragment : Fragment() {
     }
 
     private fun editarUsuario(usuario: Usuario) {
-        // Implementar navegação para o fragment de edição passando o usuário selecionado
-        // Exemplo:
-        // findNavController().navigate(R.id.action_usuarioListarFragment_to_usuarioEditarFragment, Bundle().apply {
-        //     putParcelable("usuarioId", usuario.id)
-        // })
-        Toast.makeText(requireContext(), "Editar usuário: ${usuario.nome}", Toast.LENGTH_SHORT).show()
+        val usuarioEditarFragment = UsuarioEditarFragment()
+
+        // Cria o bundle com o ID do usuário
+        val args = Bundle()
+        args.putInt("usuarioId", usuario.id)
+        usuarioEditarFragment.arguments = args
+
+        // Realiza a transição para o fragmento de edição
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, usuarioEditarFragment) // Substitua "fragment_container" pelo ID do container principal
+            .addToBackStack(null) // Adiciona à pilha de navegação
+            .commit()
     }
+
 
     private fun excluirUsuario(usuario: Usuario) {
         lifecycleScope.launch {
