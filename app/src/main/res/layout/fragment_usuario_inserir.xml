@@ -7,21 +7,26 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:padding="16dp"
+        android:layout_gravity="center_vertical"
+        >
 
         <EditText
             android:id="@+id/etNome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nome" />
+            android:hint="Nome"
+            android:layout_marginBottom="12dp" />
 
         <EditText
             android:id="@+id/etEndereco"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Endereço"
-            android:layout_marginTop="8dp" />
+            android:layout_marginBottom="12dp" />
 
         <EditText
             android:id="@+id/etEmail"
@@ -29,7 +34,7 @@
             android:layout_height="wrap_content"
             android:hint="Email"
             android:inputType="textEmailAddress"
-            android:layout_marginTop="8dp" />
+            android:layout_marginBottom="12dp" />
 
         <EditText
             android:id="@+id/etTelefone"
@@ -37,14 +42,12 @@
             android:layout_height="wrap_content"
             android:hint="Telefone"
             android:inputType="phone"
-            android:layout_marginTop="8dp" />
+            android:layout_marginBottom="16dp" />
 
         <Button
             android:id="@+id/btnInserir"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Inserir"
-            android:layout_marginTop="16dp" />
-
+            android:text="Inserir" />
     </LinearLayout>
 </ScrollView>

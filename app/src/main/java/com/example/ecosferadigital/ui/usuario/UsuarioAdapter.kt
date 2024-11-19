@@ -8,12 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ecosferadigital.R
 import com.example.ecosferadigital.models.Usuario
-import com.google.firebase.firestore.FirebaseFirestore
 
 class UsuarioAdapter(
     private val usuarios: List<Usuario>,
     private val onEdit: (Usuario) -> Unit,
-    private val onDelete: (Usuario) -> Unit
+    private val onDelete: (Usuario) -> Unit,
+    private val onCreateDevice: (Usuario) -> Unit // Callback para criação de dispositivo
 ) : RecyclerView.Adapter<UsuarioAdapter.UsuarioViewHolder>() {
 
     inner class UsuarioViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -23,6 +23,7 @@ class UsuarioAdapter(
         val tvTelefone: TextView = itemView.findViewById(R.id.tvTelefone)
         val btnEdit: Button = itemView.findViewById(R.id.btnEdit)
         val btnDelete: Button = itemView.findViewById(R.id.btnDelete)
+        val btnCriarDispositivo: Button = itemView.findViewById(R.id.btnCriarDispositivo)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsuarioViewHolder {
@@ -38,13 +39,10 @@ class UsuarioAdapter(
         holder.tvEmail.text = usuario.email
         holder.tvTelefone.text = usuario.telefone
 
-        holder.btnEdit.setOnClickListener {
-            onEdit(usuario)
-        }
-
-        holder.btnDelete.setOnClickListener {
-            onDelete(usuario)
-        }
+        // Configurar ações dos botões
+        holder.btnEdit.setOnClickListener { onEdit(usuario) }
+        holder.btnDelete.setOnClickListener { onDelete(usuario) }
+        holder.btnCriarDispositivo.setOnClickListener { onCreateDevice(usuario) }
     }
 
     override fun getItemCount(): Int = usuarios.size

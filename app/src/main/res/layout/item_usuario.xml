@@ -4,8 +4,10 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="?attr/selectableItemBackground">
+    android:background="?attr/selectableItemBackground"
+    android:layout_gravity="center_vertical">
 
+    <!-- Nome do Usuário -->
     <TextView
         android:id="@+id/tvNome"
         android:layout_width="wrap_content"
@@ -14,6 +16,7 @@
         android:textStyle="bold"
         android:textSize="16sp" />
 
+    <!-- Endereço do Usuário -->
     <TextView
         android:id="@+id/tvEndereco"
         android:layout_width="wrap_content"
@@ -21,6 +24,7 @@
         android:text="Endereço"
         android:layout_marginTop="4dp" />
 
+    <!-- Email do Usuário -->
     <TextView
         android:id="@+id/tvEmail"
         android:layout_width="wrap_content"
@@ -28,6 +32,7 @@
         android:text="Email"
         android:layout_marginTop="4dp" />
 
+    <!-- Telefone do Usuário -->
     <TextView
         android:id="@+id/tvTelefone"
         android:layout_width="wrap_content"
@@ -35,23 +40,34 @@
         android:text="Telefone"
         android:layout_marginTop="4dp" />
 
+    <!-- Botões de ação -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="8dp">
 
+        <!-- Botão de Editar -->
         <Button
             android:id="@+id/btnEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Editar" />
 
+        <!-- Botão de Excluir -->
         <Button
             android:id="@+id/btnDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Excluir"
+            android:layout_marginStart="8dp" />
+
+        <!-- Botão para Criar Dispositivo -->
+        <Button
+            android:id="@+id/btnCriarDispositivo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dispositivo"
             android:layout_marginStart="8dp" />
     </LinearLayout>
 

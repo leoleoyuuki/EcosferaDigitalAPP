@@ -1,5 +1,7 @@
 package com.example.ecosferadigital.network
 
+import com.example.ecosferadigital.models.Dispositivo
+import com.example.ecosferadigital.models.DispositivoPost
 import com.example.ecosferadigital.models.Usuario
 import com.example.ecosferadigital.models.UsuarioPost
 import retrofit2.Response
@@ -21,4 +23,23 @@ interface ApiService {
 
     @DELETE("Usuario/{id}")
     suspend fun deleteUsuario(@Path("id") id: Int): Response<Void>
+
+    // Listar dispositivos
+    @GET("dispositivos")
+    suspend fun getDispositivos(): Response<List<Dispositivo>>
+
+    // Criar dispositivo
+    @POST("dispositivos")
+    suspend fun createDispositivo(@Body dispositivoPost: DispositivoPost): Response<Dispositivo>
+
+    // Editar dispositivo
+    @PUT("dispositivos/{id}")
+    suspend fun updateDispositivo(
+        @Path("id") id: Int,
+        @Body dispositivoPost: DispositivoPost
+    ): Response<Dispositivo>
+
+    // Deletar dispositivo
+    @DELETE("dispositivos/{id}")
+    suspend fun deleteDispositivo(@Path("id") id: Int): Response<Void>
 }

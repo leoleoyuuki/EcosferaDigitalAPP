@@ -12,6 +12,7 @@ import com.example.ecosferadigital.R
 import com.example.ecosferadigital.databinding.FragmentUsuarioListarBinding
 import com.example.ecosferadigital.models.Usuario
 import com.example.ecosferadigital.network.RetrofitInstance
+import com.example.ecosferadigital.ui.dispositivo.DispositivoCriarEditarFragment
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
@@ -32,12 +33,40 @@ class UsuarioListarFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         binding.rvUsuarios.layoutManager = LinearLayoutManager(requireContext())
-        adapter = UsuarioAdapter(usuarios, { usuario -> editarUsuario(usuario) }, { usuario -> excluirUsuario(usuario) })
+
+        // Configurar o adapter com os callbacks
+        adapter = UsuarioAdapter(
+            usuarios,
+            onEdit = { usuario -> editarUsuario(usuario) },
+            onDelete = { usuario -> excluirUsuario(usuario) },
+            onCreateDevice = { usuario -> navegarParaCriarDispositivo(usuario.id) } // Corrigido
+        )
+
         binding.rvUsuarios.adapter = adapter
 
         carregarUsuarios()
     }
+
+    /**
+     * Navega para o fragmento de criação de dispositivo, enviando o ID do usuário como argumento.
+     */
+    private fun navegarParaCriarDispositivo(usuarioId: Int) {
+        val fragment = DispositivoCriarEditarFragment().apply {
+            arguments = Bundle().apply {
+                putInt("usuarioId", usuarioId)
+            }
+        }
+
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+
 
     private fun carregarUsuarios() {
         lifecycleScope.launch {

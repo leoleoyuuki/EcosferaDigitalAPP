@@ -11,4 +11,9 @@
         android:id="@+id/nav_usuario_edit"
         android:title="Editar Usuário"
         android:icon="@drawable/ic_launcher_foreground" />
+    <item
+        android:id="@+id/nav_dispositivo_list"
+        android:title="Lista de Dispositivos"
+        android:icon="@drawable/ic_launcher_foreground" />
+
 </menu>

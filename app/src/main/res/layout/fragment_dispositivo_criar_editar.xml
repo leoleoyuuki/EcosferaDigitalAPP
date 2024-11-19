@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragment_usuario_editar"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -9,40 +7,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:padding="16dp"
-        android:layout_gravity="center_vertical">
+        android:layout_gravity="center">
 
         <EditText
-            android:id="@+id/etNome"
+            android:id="@+id/etTipoDispositivo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nome"
-            android:inputType="textPersonName"
+            android:hint="Tipo do Dispositivo"
             android:layout_marginBottom="16dp" />
 
         <EditText
-            android:id="@+id/etEndereco"
+            android:id="@+id/etDescricao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Endereço"
-            android:inputType="textPostalAddress"
+            android:hint="Descrição"
             android:layout_marginBottom="16dp" />
 
         <EditText
-            android:id="@+id/etEmail"
+            android:id="@+id/etStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:layout_marginBottom="16dp" />
-
-        <EditText
-            android:id="@+id/etTelefone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Telefone"
-            android:inputType="phone"
+            android:hint="Status"
             android:layout_marginBottom="24dp" />
 
         <Button
@@ -50,6 +37,5 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Salvar" />
-
     </LinearLayout>
-</ScrollView>
+</FrameLayout>

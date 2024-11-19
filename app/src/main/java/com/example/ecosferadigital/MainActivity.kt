@@ -6,12 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.ecosferadigital.databinding.ActivityMainBinding
+import com.example.ecosferadigital.ui.dispositivo.DispositivoListarFragment
 
 import com.example.ecosferadigital.ui.usuario.UsuarioEditarFragment
 import com.example.ecosferadigital.ui.usuario.UsuarioInserirFragment
 import com.example.ecosferadigital.ui.usuario.UsuarioListarFragment
 import com.google.android.material.navigation.NavigationView
-
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var binding: ActivityMainBinding
@@ -22,29 +22,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Setup Drawer Layout
         drawerLayout = binding.drawerLayout
         val navView = binding.navView
 
-        // Set Navigation Item Selected Listener
         navView.setNavigationItemSelectedListener(this)
 
-        // Default fragment (first screen after login)
+        // Tela padrão ao abrir o app
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, UsuarioListarFragment())
             .commit()
 
-        // Setup ActionBar to open/close drawer
-        val actionBar = supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-        actionBar?.setHomeAsUpIndicator(R.drawable.ic_launcher_background) // Icon for menu
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_launcher_background)
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val fragment = when (item.itemId) {
-            R.id.nav_usuario_list -> UsuarioListarFragment()  // Lista de usuários
-            R.id.nav_usuario_insert -> UsuarioInserirFragment()  // Inserir usuários
-            R.id.nav_usuario_edit -> UsuarioEditarFragment()  // Editar usuários
+            R.id.nav_usuario_list -> UsuarioListarFragment() // Lista de usuários
+            R.id.nav_usuario_insert -> UsuarioInserirFragment() // Inserir usuários
+            R.id.nav_usuario_edit -> UsuarioEditarFragment() // Editar usuários
+            R.id.nav_dispositivo_list -> DispositivoListarFragment() // Lista de dispositivos
             else -> null
         }
 
