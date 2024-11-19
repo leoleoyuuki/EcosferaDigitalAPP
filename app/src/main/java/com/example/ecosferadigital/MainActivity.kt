@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val fragment = when (item.itemId) {
             R.id.nav_usuario_list -> UsuarioListarFragment() // Lista de usuários
             R.id.nav_usuario_insert -> UsuarioInserirFragment() // Inserir usuários
-            R.id.nav_usuario_edit -> UsuarioEditarFragment() // Editar usuários
             R.id.nav_dispositivo_list -> DispositivoListarFragment() // Lista de dispositivos
             else -> null
         }

@@ -7,10 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ecosferadigital.R
 import com.example.ecosferadigital.databinding.FragmentDispositivoListarBinding
 import com.example.ecosferadigital.models.Dispositivo
+import com.example.ecosferadigital.network.RetrofitInstance
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.io.IOException
 
 class DispositivoListarFragment : Fragment() {
 
@@ -36,30 +41,51 @@ class DispositivoListarFragment : Fragment() {
         binding.rvDispositivos.layoutManager = LinearLayoutManager(requireContext())
         binding.rvDispositivos.adapter = adapter
 
-        // Botão para adicionar um novo dispositivo
-        binding.btnAdicionarDispositivo.setOnClickListener {
-            abrirCriarEditarDispositivoFragment()
-        }
 
         carregarDispositivos()
     }
 
     private fun carregarDispositivos() {
-        // Simular carregamento de dispositivos
-        dispositivos.clear() // Limpa antes de adicionar para evitar duplicados
-        dispositivos.addAll(
-            listOf(
-                Dispositivo(1, 1, "Sensor de Temperatura", "Sala 1", "Ativo"),
-                Dispositivo(2, 1, "Sensor de Umidade", "Sala 2", "Inativo")
-            )
-        )
-        adapter.notifyDataSetChanged() // Atualiza o RecyclerView
+        lifecycleScope.launch {
+            val response = try {
+                RetrofitInstance.api.getDispositivos()
+            } catch (e: IOException) {
+                Toast.makeText(requireContext(), "Erro de rede: ${e.message}", Toast.LENGTH_SHORT).show()
+                return@launch
+            } catch (e: HttpException) {
+                Toast.makeText(requireContext(), "Erro HTTP: ${e.message}", Toast.LENGTH_SHORT).show()
+                return@launch
+            }
+
+            if (response.isSuccessful && response.body() != null) {
+                dispositivos.clear()
+                dispositivos.addAll(response.body()!!)
+                adapter.notifyDataSetChanged()
+            } else {
+                Toast.makeText(requireContext(), "Falha ao carregar dispositivos", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun excluirDispositivo(dispositivo: Dispositivo) {
-        dispositivos.remove(dispositivo)
-        adapter.notifyDataSetChanged()
-        Toast.makeText(requireContext(), "Dispositivo excluído: ${dispositivo.tipoDispositivo}", Toast.LENGTH_SHORT).show()
+        lifecycleScope.launch {
+            val response = try {
+                RetrofitInstance.api.deleteDispositivo(dispositivo.id)
+            } catch (e: IOException) {
+                Toast.makeText(requireContext(), "Erro de rede: ${e.message}", Toast.LENGTH_SHORT).show()
+                return@launch
+            } catch (e: HttpException) {
+                Toast.makeText(requireContext(), "Erro HTTP: ${e.message}", Toast.LENGTH_SHORT).show()
+                return@launch
+            }
+
+            if (response.isSuccessful) {
+                Toast.makeText(requireContext(), "Dispositivo excluído com sucesso!", Toast.LENGTH_SHORT).show()
+                carregarDispositivos()
+            } else {
+                Toast.makeText(requireContext(), "Falha ao excluir usuário", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun abrirCriarEditarDispositivoFragment() {

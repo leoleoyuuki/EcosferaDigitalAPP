@@ -54,17 +54,18 @@ class UsuarioListarFragment : Fragment() {
      * Navega para o fragmento de criação de dispositivo, enviando o ID do usuário como argumento.
      */
     private fun navegarParaCriarDispositivo(usuarioId: Int) {
-        val fragment = DispositivoCriarEditarFragment().apply {
+        val dispositivoCriarEditarFragment = DispositivoCriarEditarFragment().apply {
             arguments = Bundle().apply {
-                putInt("usuarioId", usuarioId)
+                putInt("usuarioId", usuarioId) // Passa o ID do usuário
             }
         }
 
         parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
+            .replace(R.id.fragment_container, dispositivoCriarEditarFragment)
             .addToBackStack(null)
             .commit()
     }
+
 
 
 

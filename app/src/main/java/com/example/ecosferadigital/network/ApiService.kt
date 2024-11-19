@@ -25,21 +25,21 @@ interface ApiService {
     suspend fun deleteUsuario(@Path("id") id: Int): Response<Void>
 
     // Listar dispositivos
-    @GET("dispositivos")
+    @GET("dispositivo")
     suspend fun getDispositivos(): Response<List<Dispositivo>>
 
     // Criar dispositivo
-    @POST("dispositivos")
+    @POST("dispositivo")
     suspend fun createDispositivo(@Body dispositivoPost: DispositivoPost): Response<Dispositivo>
 
     // Editar dispositivo
-    @PUT("dispositivos/{id}")
+    @PUT("dispositivo/{id}")
     suspend fun updateDispositivo(
         @Path("id") id: Int,
         @Body dispositivoPost: DispositivoPost
     ): Response<Dispositivo>
 
     // Deletar dispositivo
-    @DELETE("dispositivos/{id}")
+    @DELETE("dispositivo/{id}")
     suspend fun deleteDispositivo(@Path("id") id: Int): Response<Void>
 }
