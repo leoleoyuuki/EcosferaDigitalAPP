@@ -7,11 +7,25 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!-- Main content -->
-    <FrameLayout
-        android:id="@+id/fragment_container"
+    <!-- App bar com Toolbar -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        <!-- Main content -->
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
     <!-- Navigation drawer -->
     <com.google.android.material.navigation.NavigationView

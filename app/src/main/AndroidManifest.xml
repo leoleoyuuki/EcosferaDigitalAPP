@@ -15,6 +15,9 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.EcosferaDigital"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_launcher_foreground" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:theme="@style/Theme.MyApplication"

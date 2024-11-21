@@ -2,5 +2,10 @@
     <string name="app_name">EcosferaDigital</string>
     <string name="navigation_drawer_open">Abrir Menu</string>
     <string name="navigation_drawer_close">Fechar Menu</string>
-    <!-- Outras strings -->
+    <string-array name="status_array">
+        <item>ativo</item>
+        <item>inativo</item>
+    </string-array>
+
+
 </resources>
